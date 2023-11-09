@@ -1,0 +1,12 @@
+server:
+  port: 7171
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order_service
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+

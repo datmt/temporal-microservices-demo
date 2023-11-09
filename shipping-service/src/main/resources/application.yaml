@@ -1,0 +1,11 @@
+server:
+  port: 7373
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shipping_service
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
