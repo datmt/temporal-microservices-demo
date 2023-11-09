@@ -17,4 +17,6 @@ public class Order {
 
     @ElementCollection
     private List<OrderLine> lines;
+
+    private String status;
 }

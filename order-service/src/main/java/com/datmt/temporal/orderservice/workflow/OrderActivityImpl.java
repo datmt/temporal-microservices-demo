@@ -38,7 +38,17 @@ public class OrderActivityImpl implements OrderActivity {
     }
 
     @Override
-    public void cancelOrder(String orderId) {
+    public void cancelOrder(Long orderId) {
+        updateOrder(orderId, "CANCELLED");
+    }
 
+    @Override
+    public void updateOrder(Long orderId, String status) {
+        var oder = orderRepository.findById(orderId);
+        if (oder.isPresent()) {
+            var order = oder.get();
+            order.setStatus(status);
+            orderRepository.save(order);
+        }
     }
 }

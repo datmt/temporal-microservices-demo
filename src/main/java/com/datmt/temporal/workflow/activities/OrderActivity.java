@@ -12,6 +12,9 @@ public interface OrderActivity {
     Long placeOrder(String customerId, Map<Long, Integer> productLines);
 
     @ActivityMethod
-    void cancelOrder(String orderId);
+    void cancelOrder(Long orderId);
+
+    @ActivityMethod
+    void updateOrder(Long orderId, String status);
 
 }
