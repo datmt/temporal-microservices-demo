@@ -7,9 +7,9 @@ import io.temporal.activity.ActivityMethod;
 public interface PaymentProcessingActivity {
 
     @ActivityMethod
-    void processPayment(String orderId, int amount);
+    void processPayment(Long orderId, double amount);
 
     @ActivityMethod
-    void cancelPayment(String orderId);
+    void cancelPayment(Long orderId);
 
 }

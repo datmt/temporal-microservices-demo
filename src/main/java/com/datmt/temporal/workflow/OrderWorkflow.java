@@ -1,8 +1,13 @@
 package com.datmt.temporal.workflow;
 
 import io.temporal.workflow.WorkflowInterface;
+import io.temporal.workflow.WorkflowMethod;
+
+import java.util.Map;
 
 @WorkflowInterface
 public interface OrderWorkflow {
-    void processOrder(String orderId, String customerId, String itemId, int quantity);
+
+    @WorkflowMethod
+    void processOrder(String customerId, Map<Long, Integer> orderLines, double amount);
 }
