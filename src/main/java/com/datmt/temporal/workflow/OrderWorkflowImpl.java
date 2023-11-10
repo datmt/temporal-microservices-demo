@@ -35,8 +35,12 @@ public class OrderWorkflowImpl implements OrderWorkflow {
 
     @Override
     public void processOrder(String customerId, Map<Long, Integer> orderLines, double amount) {
+        log.info("Processing order for customer {}", customerId);
         var orderId = orderActivity.placeOrder(customerId, orderLines);
+        log.info("Order {} placed for customer {}", orderId, customerId);
         paymentActivity.processPayment(orderId, amount);
+        log.info("Payment processed for order {} of customer {}", orderId, customerId);
         shippingActivity.shipOrder(orderId, customerId);
+        log.info("Order {} shipped for customer {}", orderId, customerId);
     }
 }

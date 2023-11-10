@@ -20,21 +20,23 @@ public class OrderActivityImpl implements OrderActivity {
 
     @Override
     public Long placeOrder(String customerId, Map<Long, Integer> productLines) {
+//
+//        var order = new Order();
+//        order.setCustomerId(customerId);
+//        order.setLines(productLines.entrySet().stream()
+//                .map(entry -> {
+//                    var line = new OrderLine();
+//                    line.setProductId(entry.getKey());
+//                    line.setQuantity(entry.getValue());
+//                    return line;
+//                })
+//                .toList());
+//
+//        var savedOrder = orderRepository.save(order);
+//
+//        return savedOrder.getId();
 
-        var order = new Order();
-        order.setCustomerId(customerId);
-        order.setLines(productLines.entrySet().stream()
-                .map(entry -> {
-                    var line = new OrderLine();
-                    line.setProductId(entry.getKey());
-                    line.setQuantity(entry.getValue());
-                    return line;
-                })
-                .toList());
-
-        var savedOrder = orderRepository.save(order);
-
-        return savedOrder.getId();
+        return 1L;
     }
 
     @Override

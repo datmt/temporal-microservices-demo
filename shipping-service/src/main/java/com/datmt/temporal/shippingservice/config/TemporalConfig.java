@@ -1,6 +1,7 @@
 package com.datmt.temporal.shippingservice.config;
 
 import com.datmt.temporal.shippingservice.workflow.ShippingActivityImpl;
+import com.datmt.temporal.workflow.OrderWorkflowImpl;
 import com.datmt.temporal.workflow.WorkerHelper;
 import io.temporal.client.WorkflowClient;
 import io.temporal.serviceclient.WorkflowServiceStubs;
@@ -27,6 +28,12 @@ public class TemporalConfig {
         var client = WorkflowClient.newInstance(stub);
 
         var factory = WorkerFactory.newInstance(client);
+
+        Worker lifecycleWorker = factory.newWorker(WorkerHelper.ORDER_LIFECYCLE_WORKFLOW_TASK_QUEUE);
+        lifecycleWorker.registerWorkflowImplementationTypes(OrderWorkflowImpl.class);
+        lifecycleWorker.registerActivitiesImplementations(shippingActivity);
+
+
         Worker worker = factory.newWorker(WorkerHelper.WORKFLOW_SHIPPING_TASK_QUEUE);
         worker.registerActivitiesImplementations(shippingActivity);
         factory.start();
