@@ -35,18 +35,15 @@ You can run them in any order.
    There is a controller in the order service that you can use to start the workflow.
 
 ```shell
-curl --location --request POST 'localhost:7171/orders' \
+curl --location 'http://localhost:7171/orders' \
 --header 'Content-Type: application/json' \
---data-raw '{
-"orderId": "Alice",
-"customerId": "456",
-"items": [
-{
-"1": "2"
-}
-]
+--data '{
+    "customerId": "Alice",
+    "items": {
+        "1": "1",
+        "2": "2"
+    }
 }'
-
 ```
 
 In the items array, the key is the item id, and the value is the quantity.
