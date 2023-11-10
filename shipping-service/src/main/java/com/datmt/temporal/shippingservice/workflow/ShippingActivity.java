@@ -1,14 +1,10 @@
-package com.datmt.temporal.workflow.activities;
+package com.datmt.temporal.shippingservice.workflow;
 
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 
 @ActivityInterface
 public interface ShippingActivity {
-
     @ActivityMethod
-    void shipOrder(Long orderId, String customerId);
-
-    @ActivityMethod
-    void cancelShipping(String orderId);
+    void shipOrder(Long orderId);
 }

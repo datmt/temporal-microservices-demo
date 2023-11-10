@@ -1,4 +1,4 @@
-package com.datmt.temporal.workflow.activities;
+package com.datmt.temporal.orderservice.workflow;
 
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
@@ -9,7 +9,7 @@ import java.util.Map;
 public interface OrderActivity {
 
     @ActivityMethod
-    Long placeOrder(String customerId, Map<Long, Integer> productLines);
+    Long placeOrder(Long customerId, Map<Long, Integer> productLines);
 
     @ActivityMethod
     void cancelOrder(Long orderId);

@@ -6,8 +6,8 @@ import io.temporal.workflow.WorkflowMethod;
 import java.util.Map;
 
 @WorkflowInterface
-public interface OrderWorkflow {
+public interface OrderLifecycleWorkflow {
 
     @WorkflowMethod
-    void processOrder(String customerId, Map<Long, Integer> orderLines, double amount);
+    void orchestratingOrder(Long customerId, Map<Long, Integer> orderLines);
 }

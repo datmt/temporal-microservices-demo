@@ -1,9 +1,6 @@
 package com.datmt.temporal.orderservice.models;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
@@ -12,8 +9,9 @@ import java.util.List;
 @Data
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String customerId;
+    private Long customerId;
 
     @ElementCollection
     private List<OrderLine> lines;

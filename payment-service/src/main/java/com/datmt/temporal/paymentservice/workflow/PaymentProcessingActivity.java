@@ -1,15 +1,10 @@
-package com.datmt.temporal.workflow.activities;
+package com.datmt.temporal.paymentservice.workflow;
 
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 
 @ActivityInterface
 public interface PaymentProcessingActivity {
-
     @ActivityMethod
-    void processPayment(Long orderId, double amount);
-
-    @ActivityMethod
-    void cancelPayment(Long orderId);
-
+    void processPayment(Long orderId);
 }
