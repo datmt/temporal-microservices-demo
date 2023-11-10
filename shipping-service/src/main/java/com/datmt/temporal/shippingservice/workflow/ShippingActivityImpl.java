@@ -1,20 +1,31 @@
 package com.datmt.temporal.shippingservice.workflow;
 
+import com.datmt.temporal.shippingservice.models.Shipment;
+import com.datmt.temporal.shippingservice.repositories.ShipmentRepository;
 import com.datmt.temporal.workflow.activities.ShippingActivity;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class ShippingActivityImpl implements ShippingActivity {
-    @Override
-    public void shipOrder(Long orderId, String customerId) {
-        log.info("Order shipped for order id: {} and customer id: {}", orderId, customerId);
+    private ShipmentRepository shipmentRepository;
+
+    @Autowired
+    public void setShipmentRepository(ShipmentRepository shipmentRepository) {
+        this.shipmentRepository = shipmentRepository;
     }
 
     @Override
-    public void cancelShipping(String orderId) {
-        log.info("Shipping cancelled for order id: {}", orderId);
-        throw new RuntimeException("Shipping cancelled");
+    public void processShipment(Long orderId) {
+        log.info("Shipment processed for order id: {}:", orderId);
+        var shipment = new Shipment();
+        shipment.setOrderId(orderId);
+        shipment.setStatus("SHIPPED");
+        shipmentRepository.save(shipment);
+
+        log.info("Shipment saved successfully for order id: {}", orderId);
     }
+
 }

@@ -9,7 +9,4 @@ public interface PaymentActivity {
     @ActivityMethod
     void processPayment(Long orderId, double amount);
 
-    @ActivityMethod
-    void cancelPayment(Long orderId);
-
 }

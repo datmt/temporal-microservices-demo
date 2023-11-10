@@ -17,7 +17,7 @@ public class OrderWorkflowImpl implements OrderWorkflow {
 
     private final RetryOptions retryoptions = RetryOptions.newBuilder()
             .setInitialInterval(Duration.ofSeconds(1))
-            .setMaximumInterval(Duration.ofSeconds(100))
+            .setMaximumInterval(Duration.ofSeconds(10))//set to 10 seconds for demo, default is 100 seconds
             .setBackoffCoefficient(2)
             .setMaximumAttempts(500)
             .build();
@@ -25,22 +25,28 @@ public class OrderWorkflowImpl implements OrderWorkflow {
             .setStartToCloseTimeout(Duration.ofSeconds(5))
             .setRetryOptions(retryoptions)
             .build();
-    private final Map<String, ActivityOptions> perActivityMethodOptions = new HashMap<>() {{
+
+    private final Map<String, ActivityOptions> methodOptions = new HashMap<>() {{
+        //Not sure what to put in the key here, but it seems to work with the value. Use at your own risk.
         put(WorkerHelper.ORDER_LIFECYCLE_WORKFLOW_TASK_QUEUE, ActivityOptions.newBuilder().setHeartbeatTimeout(Duration.ofSeconds(5)).build());
     }};
+    private final OrderActivity orderActivity = Workflow.newActivityStub(OrderActivity.class, defaultActivityOptions, methodOptions);
+    private final ShippingActivity shippingActivity = Workflow.newActivityStub(ShippingActivity.class, defaultActivityOptions, methodOptions);
+    private final PaymentActivity paymentActivity = Workflow.newActivityStub(PaymentActivity.class, defaultActivityOptions, methodOptions);
 
-    private final OrderActivity orderActivity = Workflow.newActivityStub(OrderActivity.class, defaultActivityOptions, perActivityMethodOptions);
-    private final ShippingActivity shippingActivity = Workflow.newActivityStub(ShippingActivity.class, defaultActivityOptions, perActivityMethodOptions);
-    private final PaymentActivity paymentActivity = Workflow.newActivityStub(PaymentActivity.class, defaultActivityOptions, perActivityMethodOptions);
 
     @Override
     public void processOrder(String customerId, Map<Long, Integer> orderLines, double amount) {
-        log.info("Processing order for customer {}", customerId);
+        log.info("WORKFLOW: Processing order for customer {}", customerId);
         var orderId = orderActivity.placeOrder(customerId, orderLines);
-        log.info("Order {} placed for customer {}", orderId, customerId);
+        log.info("WORKFLOW: Order {} placed for customer {}", orderId, customerId);
         paymentActivity.processPayment(orderId, amount);
-        log.info("Payment processed for order {} of customer {}", orderId, customerId);
-        shippingActivity.shipOrder(orderId, customerId);
-        log.info("Order {} shipped for customer {}", orderId, customerId);
+        log.info("WORKFLOW: Payment processed for order {} of customer {}", orderId, customerId);
+        shippingActivity.processShipment(orderId);
+        log.info("WORKFLOW: Order {} shipped for customer {}", orderId, customerId);
+
+        orderActivity.completeOrder(orderId);
+        log.info("WORKFLOW: Order {} completed for customer {}", orderId, customerId);
     }
+
 }

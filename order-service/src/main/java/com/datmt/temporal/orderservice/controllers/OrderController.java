@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.Random;
 
 @RestController
 @RequestMapping("orders")
@@ -27,7 +27,6 @@ public class OrderController {
 
         WorkflowOptions options = WorkflowOptions.newBuilder()
                 .setTaskQueue(WorkerHelper.ORDER_LIFECYCLE_WORKFLOW_TASK_QUEUE)
-                .setWorkflowId(request.customerId())
                 .build();
         OrderWorkflow workflow = workflowClient.newWorkflowStub(OrderWorkflow.class, options);
 

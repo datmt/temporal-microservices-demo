@@ -15,6 +15,6 @@ public interface OrderActivity {
     void cancelOrder(Long orderId);
 
     @ActivityMethod
-    void updateOrder(Long orderId, String status);
+    void completeOrder(Long orderId);
 
 }

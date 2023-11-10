@@ -7,8 +7,6 @@ import io.temporal.activity.ActivityMethod;
 public interface ShippingActivity {
 
     @ActivityMethod
-    void shipOrder(Long orderId, String customerId);
+    void processShipment(Long orderId);
 
-    @ActivityMethod
-    void cancelShipping(String orderId);
 }

@@ -29,12 +29,8 @@ public class TemporalConfig {
 
         var factory = WorkerFactory.newInstance(client);
 
-        Worker lifecycleWorker = factory.newWorker(WorkerHelper.ORDER_LIFECYCLE_WORKFLOW_TASK_QUEUE);
-        lifecycleWorker.registerWorkflowImplementationTypes(OrderWorkflowImpl.class);
-        lifecycleWorker.registerActivitiesImplementations(shippingActivity);
-
-
-        Worker worker = factory.newWorker(WorkerHelper.WORKFLOW_SHIPPING_TASK_QUEUE);
+        Worker worker = factory.newWorker(WorkerHelper.ORDER_LIFECYCLE_WORKFLOW_TASK_QUEUE);
+        worker.registerWorkflowImplementationTypes(OrderWorkflowImpl.class);
         worker.registerActivitiesImplementations(shippingActivity);
         factory.start();
     }
