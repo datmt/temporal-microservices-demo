@@ -4,7 +4,7 @@ import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 
 @ActivityInterface
-public interface PaymentProcessingActivity {
+public interface PaymentActivity {
 
     @ActivityMethod
     void processPayment(Long orderId, double amount);
