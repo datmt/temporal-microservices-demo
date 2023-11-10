@@ -8,7 +8,7 @@
 1. You need to setup temporal first, ideally using docker-compose.
    The file is available here:
 
- ```
+```
  rev: c66f523
 https://github.com/temporalio/docker-compose/blob/main/docker-compose.yml
 ```
@@ -21,7 +21,6 @@ password: postgres
 
 or configure your own database in the docker-compose file.
 
-```
 2. Run the microservices
 
 There are three services
@@ -35,9 +34,8 @@ You can run them in any order.
 3. Run the workflow
    There is a controller in the order service that you can use to start the workflow.
 
-```
-
-curl --location --request POST 'localhost:7171/orders' \h
+```shell
+curl --location --request POST 'localhost:7171/orders' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 "orderId": "Alice",
